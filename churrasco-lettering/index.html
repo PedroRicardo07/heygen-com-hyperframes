@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>Churrasco do ilustrador de linguiça</title>
+    <script src="assets/js/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Pacifico"; src: url("assets/fonts/pacifico.woff2") format("woff2"); font-display: block; }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: #efeae3;
+        font-family: "Pacifico", cursive;
+        color: #7a4a2e;
+      }
+      #root {
+        position: relative;
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: radial-gradient(ellipse at 50% 45%, #f6f2ec 0%, #efeae3 55%, #e2dace 100%);
+      }
+      .scene-content {
+        position: relative;
+        z-index: 2;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+        padding: 220px 80px 260px;
+        gap: 0;
+      }
+      .line {
+        display: block;
+        line-height: 1.25;
+        padding: 0 30px 20px;
+        text-align: center;
+        white-space: nowrap;
+      }
+      .l1 { font-size: 136px; }
+      .l2 { font-size: 110px; margin-top: -30px; }
+      .l3 { font-size: 136px; margin-top: -30px; }
+      .l4 { font-size: 136px; margin-top: -30px; }
+      .underline {
+        width: 520px;
+        height: 40px;
+        margin-top: -10px;
+      }
+      .icon-wrap {
+        position: relative;
+        width: 440px;
+        height: 440px;
+        margin-top: 10px;
+      }
+      #icon {
+        position: absolute;
+        inset: 0;
+        transform-origin: 50% 85%;
+      }
+      #smoke {
+        position: absolute;
+        left: 50%;
+        top: -150px;
+        width: 300px;
+        height: 280px;
+        margin-left: -150px;
+        z-index: -1;
+      }
+      .ember {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-radius: 50%;
+        background: #b5653a;
+        z-index: 1;
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="churrasco"
+      data-start="0"
+      data-duration="8"
+      data-width="1080"
+      data-height="1920"
+    >
+      <div class="scene-content">
+        <span class="line l1">churrasco</span>
+        <span class="line l2">do</span>
+        <span class="line l3">ilustrador</span>
+        <span class="line l4">de linguiça</span>
+        <svg class="underline" viewBox="0 0 520 40" fill="none">
+          <path id="swash" d="M10 26 C 120 6, 260 36, 380 18 S 500 14, 510 22"
+            stroke="#b5653a" stroke-width="8" stroke-linecap="round" />
+        </svg>
+
+        <div class="icon-wrap">
+          <svg id="smoke" viewBox="0 0 360 420" fill="none">
+            <path class="wisp w1" d="M150 420 C 110 360, 190 320, 150 260 S 110 160, 160 90"
+              stroke="#bdb2a3" stroke-width="30" stroke-linecap="round" />
+            <path class="wisp w2" d="M200 420 C 240 350, 160 300, 205 230 S 250 130, 200 60"
+              stroke="#bdb2a3" stroke-width="26" stroke-linecap="round" />
+            <path class="wisp w3" d="M180 420 C 150 370, 215 330, 180 280 S 150 200, 185 140"
+              stroke="#c9bfb1" stroke-width="20" stroke-linecap="round" />
+          </svg>
+
+          <svg id="icon" viewBox="0 0 360 360" fill="none">
+            <!-- fork -->
+            <g fill="#7a4a2e">
+              <rect x="170" y="150" width="20" height="190" rx="10" />
+              <path d="M130 36 h16 v104 q0 30 34 30 q34 0 34 -30 v-104 h16 v104 q0 50 -50 50 q-50 0 -50 -50 z" />
+              <rect x="163" y="36" width="12" height="110" rx="6" />
+              <rect x="185" y="36" width="12" height="110" rx="6" />
+            </g>
+            <!-- sausage link (plain, tied at both ends) -->
+            <g>
+              <rect x="40" y="96" width="280" height="76" rx="38" fill="#7a4a2e" />
+              <path d="M80 118 Q 180 106 280 118" stroke="#efeae3" stroke-width="7"
+                stroke-linecap="round" opacity="0.55" />
+              <path d="M40 134 l-26 -14 M40 134 l-26 14" stroke="#7a4a2e" stroke-width="9"
+                stroke-linecap="round" />
+              <path d="M320 134 l26 -14 M320 134 l26 14" stroke="#7a4a2e" stroke-width="9"
+                stroke-linecap="round" />
+            </g>
+          </svg>
+        </div>
+      </div>
+
+      <div class="ember e1" style="left: 380px; top: 1700px"></div>
+      <div class="ember e2" style="left: 640px; top: 1760px"></div>
+      <div class="ember e3" style="left: 520px; top: 1820px"></div>
+      <div class="ember e4" style="left: 760px; top: 1680px"></div>
+      <div class="ember e5" style="left: 300px; top: 1790px"></div>
+
+      <script>
+        (function () {
+          const SLOT_DURATION = 8;
+          const tl = gsap.timeline({ paused: true });
+          const reveal = "inset(-30% 100% -30% -15%)";
+          const shown = "inset(-30% -15% -30% -15%)";
+
+          // Lettering "writing" left → right, one line at a time
+          const lines = [
+            [".l1", 0.4, 0.9],
+            [".l2", 1.3, 0.4],
+            [".l3", 1.75, 0.9],
+            [".l4", 2.7, 1.0],
+          ];
+          lines.forEach(([sel, at, dur]) => {
+            tl.fromTo(sel, { clipPath: reveal, y: 12 },
+              { clipPath: shown, y: 0, duration: dur, ease: "power1.inOut" }, at);
+          });
+
+          // Swash underline draws on
+          const swash = document.getElementById("swash");
+          const len = swash.getTotalLength();
+          tl.fromTo(swash, { strokeDasharray: len, strokeDashoffset: len },
+            { strokeDashoffset: 0, duration: 0.6, ease: "power2.out" }, 3.6);
+
+          // Sausage-on-fork drops in and bounces
+          tl.fromTo("#icon", { y: -700, rotation: -12, opacity: 0 },
+            { y: 0, rotation: 0, opacity: 1, duration: 1.0, ease: "bounce.out" }, 3.9);
+          tl.to("#icon", { scaleX: 1.08, scaleY: 0.92, duration: 0.1, ease: "sine.out" }, 4.9);
+          tl.to("#icon", { scaleX: 1, scaleY: 1, duration: 0.5, ease: "elastic.out(1, 0.35)" }, 5.02);
+          // idle hop
+          tl.to("#icon", { y: -40, duration: 0.3, ease: "power2.out" }, 6.0);
+          tl.to("#icon", { y: 0, duration: 0.5, ease: "bounce.out" }, 6.3);
+
+          // Smoke wisps rise and fade (finite, deterministic loops)
+          document.querySelectorAll(".wisp").forEach((p, i) => {
+            const l = p.getTotalLength();
+            const start = 4.6 + i * 0.35;
+            for (let k = 0; start + k * 1.3 < SLOT_DURATION; k++) {
+              const t = start + k * 1.3;
+              tl.fromTo(p,
+                { strokeDasharray: `${l * 0.6} ${l}`, strokeDashoffset: l * 0.6, opacity: 0 },
+                { strokeDashoffset: -l * 0.9, duration: 1.8, ease: "sine.inOut" }, t);
+              tl.to(p, { opacity: 1, duration: 0.4, ease: "sine.out" }, t);
+              tl.to(p, { opacity: 0, duration: 0.6, ease: "sine.in" }, t + 1.1);
+            }
+          });
+
+          // Embers drifting up
+          document.querySelectorAll(".ember").forEach((e, i) => {
+            const t = 0.2 + i * 0.9;
+            const drift = Math.sin(i * 12.9898) * 60;
+            tl.fromTo(e, { y: 0, x: 0, opacity: 0, scale: 0.6 },
+              { y: -520, x: drift, opacity: 0, scale: 0.2, duration: 3.2, ease: "none" }, t);
+            tl.to(e, { opacity: 0.8, duration: 0.5, ease: "sine.out" }, t);
+            tl.to(e, { opacity: 0, duration: 1.0, ease: "sine.in" }, t + 2.2);
+          });
+
+          // Gentle breathing on the whole lettering during the hold
+          tl.to(".scene-content", { scale: 1.02, duration: 3, ease: "sine.inOut" }, 5);
+
+          tl.to({}, { duration: SLOT_DURATION }, 0);
+          window.__timelines = window.__timelines || {};
+          window.__timelines["churrasco"] = tl;
+        })();
+      </script>
+    </div>
+  </body>
+</html>
